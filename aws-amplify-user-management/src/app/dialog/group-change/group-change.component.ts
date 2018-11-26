@@ -16,6 +16,7 @@ export class GroupChangeComponent implements OnInit {
 
 	ngOnInit() {
 		console.dir(this);
+		console.log(this.data.groupArr);
 	}
 
 	onClickOkButton() : void {

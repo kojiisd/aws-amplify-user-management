@@ -5,10 +5,10 @@
     <option [ngValue]="group.GroupName">{{group.GroupName}}</option>
   </ng-container>
 </select>
-<button (click)="User()" class="btn btn-success mx-3 my-3">Cognitoユーザ一覧取得</button>
+<button (click)="User()" class="btn btn-success mx-3 my-3">Get Cognito User Info</button>
  
 <div class="main" *ngIf="users">
-  <h2 class="list-title">ユーザ情報</h2>
+  <h2 class="list-title">User Information</h2>
  
   <div class="table-responsive">
     <table class="table table-sm table-bordered table-hover">

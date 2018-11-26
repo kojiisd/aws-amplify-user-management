@@ -110,8 +110,10 @@ export class UserComponent implements OnInit {
 
   GroupChange(groups): void {
     let groupNameArr = [];
-    for (let group of groups) {
-      groupNameArr.push(group.GroupName);
+    if (groups) {
+      for (let group of groups) {
+        groupNameArr.push(group.GroupName);
+      }
     }
 
     console.log(groupNameArr);
@@ -119,7 +121,7 @@ export class UserComponent implements OnInit {
       'data' : {'groupArr': groupNameArr,
                 'allGroups': this.groups },
 			'height' : '300px',
-			'width' : '500px',
+			'width' : '400px',
 			'disableClose' : false
 		});
 		dialog.afterClosed().subscribe( (result) => {

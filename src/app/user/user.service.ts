@@ -12,13 +12,13 @@ import { User, Group } from 'src/app/component/user/user';
 })
 
 export class UserService {
-  private listUrl = environment.apiBaseUrl + '/user-list'
-  private listInGroupUrl = environment.apiBaseUrl + '/user-list/in-group'
-  private approveUrl = environment.apiBaseUrl + '/approve'
-  private enableUrl = environment.apiBaseUrl + '/enable'
-  private disableUrl = environment.apiBaseUrl + '/disable'
-  private deleteUrl = environment.apiBaseUrl + '/delete'
-  private listGroupUrl = environment.apiBaseUrl + '/group-list'
+  private listUrl = environment.apiBaseUrl + '/api/list_users'
+  private listInGroupUrl = environment.apiBaseUrl + '/list_users_in_group'
+  private approveUrl = environment.apiBaseUrl + '/api/approve_user'
+  private enableUrl = environment.apiBaseUrl + '/api/enable_user'
+  private disableUrl = environment.apiBaseUrl + '/api/disable_user'
+  private deleteUrl = environment.apiBaseUrl + '/api/delete_user'
+  private listGroupUrl = environment.apiBaseUrl + '/api/list_groups'
 
   constructor(private http: HttpClient) { }
 
@@ -34,11 +34,8 @@ export class UserService {
     const httpOptions = {
       headers: { Authorization: token}
     };
-    const body = {
-      'UserPoolId': environment.amplify.Auth.userPoolId
-    }
 
-    return this.http.post<any>(this.listUrl, body, httpOptions).pipe(
+    return this.http.get<any>(this.listUrl, httpOptions).pipe(
       map(users => users['Users']),
       tap(users => users['Users']),
       catchError(this.handleError('ListUsers', []))
@@ -49,12 +46,8 @@ export class UserService {
     const httpOptions = {
       headers: { Authorization: token}
     };
-    const body = {
-      'UserPoolId': environment.amplify.Auth.userPoolId,
-      'GroupName': group
-    }
 
-    return this.http.post<any>(this.listInGroupUrl, body, httpOptions).pipe(
+    return this.http.get<any>(this.listInGroupUrl + "?GroupName=" + group, httpOptions).pipe(
       map(users => users['Users']),
       tap(users => users['Users']),
       catchError(this.handleError('ListUsersInGroup', []))
@@ -65,11 +58,8 @@ export class UserService {
     const httpOptions = {
       headers: { Authorization: token}
     };
-    const body = {
-      'UserPoolId': environment.amplify.Auth.userPoolId
-    }
 
-    return this.http.post<any>(this.listGroupUrl, body, httpOptions).pipe(
+    return this.http.get<any>(this.listGroupUrl, httpOptions).pipe(
       map(groups => groups['Groups']),
       tap(groups => groups['Groups']),
       catchError(this.handleError('ListGroups', []))
@@ -97,7 +87,6 @@ export class UserService {
       headers: { Authorization: token}
     };
     const body = {
-      'UserPoolId': environment.amplify.Auth.userPoolId,
       'Username' : userName
     }
 
@@ -113,7 +102,6 @@ export class UserService {
       headers: { Authorization: token}
     };
     const body = {
-      'UserPoolId': environment.amplify.Auth.userPoolId,
       'Username' : userName
     }
 
@@ -129,7 +117,6 @@ export class UserService {
       headers: { Authorization: token}
     };
     const body = {
-      'UserPoolId': environment.amplify.Auth.userPoolId,
       'Username' : userName
     }
 
